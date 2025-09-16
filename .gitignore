@@ -1,0 +1,15 @@
+# Visual Studio
+*.user
+*.suo
+*.vs/
+*.vcxproj.filters
+[Dd]ebug/
+[Rr]elease/
+x64/
+bin/
+obj/
+
+# Other
+*.exe
+*.lib
+*.dll
