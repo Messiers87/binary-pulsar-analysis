@@ -1,0 +1,25 @@
+# Input parameters for the looped, weighted gamma calculation.
+# Note: Porb and Pspin are not specified here because the code
+# loops over a predefined list of their values. All other
+# physical parameters of the system are defined below.
+
+# Pulsar Mass [M_sun]
+Mp      1.4
+
+# Companion Mass [M_sun]
+Mc      0.3
+
+# Inclination [degrees]
+i       60.0
+
+# Eccentricity
+e       0.5
+
+# Longitude of Periastron (omega) [degrees]
+omega   0.0
+
+# Observation Time [seconds]
+T       1000.0
+
+# Harmonic number
+m       4
