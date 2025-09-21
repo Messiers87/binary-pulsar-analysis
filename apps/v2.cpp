@@ -1,5 +1,4 @@
 // gamma1 weighted (equation 29 implementation)
-// produce csv data with columns gamma1avg and w
 #include "../src/orbit.h"
 #include "../src/gamma.h"
 #include "../src/io.h"
@@ -7,31 +6,6 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-
-// int main() {
-//     auto [params, run] = read_input("../input/gamma1_weighted.input");
-
-//     long double T_obs = 500.0L;
-//     int m = 4;
-//     long double Pp_s = 0.01L;
-
-//     long double sum_num = 0.0L;
-//     long double sum_den = 0.0L;
-
-//     for (int fdeg = 0; fdeg < 360; fdeg += 2) {
-//         long double gamma_f = gamma1(params, fdeg, T_obs, m, Pp_s);
-//         long double w = compute_w(fdeg, params.e);
-//         sum_num += gamma_f * w;
-//         sum_den += w;
-//     }
-
-//     long double gamma_avg = sum_num / sum_den;
-
-//     write_output_single("../output/gamma1_weighted.output", gamma_avg );
-//     std::cout << "Weighted gamma1=" << gamma_avg << " written to gamma1_weighted.output\n";
-
-//     return 0;
-// }
 
 int main() {
     const std::string input_file = "input/gamma1_weighted.input";
@@ -56,7 +30,7 @@ int main() {
 
     #pragma omp parallel for reduction(+:sum_num, sum_den)
     for (int i = 0; i < f_steps; ++i) {
-        long double f0_deg = 360.0L * ((long double)i) / ((long double)f_steps);
+        long double f0_deg = 360.0L * ((long double)i) / ((long double)f_steps); // 2 deg stepsize
         
         long double gamma_f = gamma1(p, f0_deg, T_obs, m, Pp_s);
         long double w_f = powl(1.0L + p.e * cosl(deg2rad(f0_deg)), -2.0L);

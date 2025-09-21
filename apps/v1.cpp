@@ -1,4 +1,4 @@
-// gamma1_unweighted, produce data with columns gamma1 and w
+// gamma1_unweighted,
 #include "../src/orbit.h"
 #include "../src/gamma.h"
 #include "../src/io.h"

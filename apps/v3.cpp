@@ -1,5 +1,4 @@
 // gamma_weightedLooped 
-// prdouce csv data with gamma1avg, Po, Pp 
 
 #include "../src/orbit.h"
 #include "../src/gamma.h"
