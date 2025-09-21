@@ -2,6 +2,7 @@
 *.user
 *.suo
 *.vs/
+*.vscode/
 *.vcxproj.filters
 [Dd]ebug/
 [Rr]elease/
