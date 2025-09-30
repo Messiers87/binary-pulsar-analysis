@@ -9,8 +9,8 @@
 #include <vector>
 
 int main() {
-    const std::string input_file = "input/gamma1_weightedLooped.input";
-    const std::string output_file = "output/gamma1_weightedLooped.output";
+    const std::string input_file = "input/gamma1_weighted_loopPorbPspin.input";
+    const std::string output_file = "output/gamma1_weighted_loopPorbPspin.output";
     
     auto params = parse_input(input_file);
     
@@ -41,12 +41,15 @@ int main() {
             long double sum_den = 0.0L;
             const int f_steps = 180;
 
+            const long double w_max_denom = powl(1.0L + current_p.e * cosl(deg2rad(180.0L)), -2.0L);
+
             #pragma omp parallel for reduction(+:sum_num, sum_den)
             for (int i = 0; i < f_steps; ++i) {
                 long double f0_deg = 360.0L * ((long double)i) / ((long double)f_steps);
                 
                 long double gamma_f = gamma1(current_p, f0_deg, T_obs, m, Pp_s);
-                long double w_f = powl(1.0L + current_p.e * cosl(deg2rad(f0_deg)), -2.0L);
+                long double w_num = powl(1.0L + current_p.e * cosl(deg2rad(f0_deg)), -2.0L);
+                long double w_f = w_num / w_max_denom;
 
                 sum_num += gamma_f * w_f;
                 sum_den += w_f;

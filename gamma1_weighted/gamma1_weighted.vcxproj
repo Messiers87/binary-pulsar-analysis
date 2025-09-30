@@ -127,12 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\apps\v2.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\libGamma\libGamma.vcxproj">
       <Project>{a52556a7-649c-4627-b2c1-e5091498a42a}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\apps\gamma1_weighted.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

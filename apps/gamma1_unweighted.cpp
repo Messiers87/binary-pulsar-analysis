@@ -1,13 +1,11 @@
 // gamma1_unweighted
-#include "../src/orbit.h"
-#include "../src/gamma.h"
-#include "../src/io.h"
+#include "orbit.h"
+#include "gamma.h"
+#include "io.h"
 
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-
-constexpr long double PI = 3.141592653589793238462643383279502884L;
 
 int main() {
     const std::string input_file = "input/gamma1_unweighted.input";
@@ -29,9 +27,8 @@ int main() {
 
     long double gamma = gamma1(p, f0_deg, T_obs, m, Pp_s);
     long double num = powl(1.0L + p.e * cosl(deg2rad(f0_deg)), -2.0L);
-    long double denom = powl(1.0L + p.e * cosl(PI), -2.0L);
+    long double denom = powl(1.0L + p.e * cosl(deg2rad(180.0L)), -2.0L);
 	long double w = num / denom;
-    return w;
 
     std::cout << "Computation finished." << std::endl;
     std::cout << "  gamma1 = " << gamma << std::endl;

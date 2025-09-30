@@ -22,7 +22,7 @@ e       0.5
 omega   0.0
 
 # Starting True Anomaly [degrees]
-f0      180.0
+f0      10.0
 
 # Pulsar Spin Period [seconds]
 Pspin   0.01
