@@ -26,14 +26,17 @@ int main() {
 
     long double sum_num = 0.0L;
     long double sum_den = 0.0L;
-    const int f_steps = 180;
+    const int f_steps = 3600; //0.10 degree stepsize
 
     #pragma omp parallel for reduction(+:sum_num, sum_den)
     for (int i = 0; i < f_steps; ++i) {
-        long double f0_deg = 360.0L * ((long double)i) / ((long double)f_steps); // 2 deg stepsize
+        long double f0_deg = 360.0L * ((long double)i) / ((long double)f_steps); 
         
         long double gamma_f = gamma1(p, f0_deg, T_obs, m, Pp_s);
-        long double w_f = powl(1.0L + p.e * cosl(deg2rad(f0_deg)), -2.0L);
+
+        long double w_num = powl(1.0L + p.e * cosl(deg2rad(f0_deg)), -2.0L);
+        long double w_denom = powl(1.0L + p.e * cosl(deg2rad(180.0L)), -2.0L);
+        long double w_f = w_num / w_denom;
 
         sum_num += gamma_f * w_f;
         sum_den += w_f;
@@ -42,8 +45,10 @@ int main() {
     long double gamma_avg = sum_num / sum_den;
     
     std::cout << "Computation finished." << std::endl;
+    std::cout << std::fixed << std::setprecision(15);
     std::cout << "  Weighted gamma1 = " << gamma_avg << std::endl;
-    
+
+    // write to output file
     std::ofstream outfile(output_file);
     outfile.setf(std::ios::fixed);
     outfile << std::setprecision(8);
