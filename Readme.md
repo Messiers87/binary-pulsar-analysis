@@ -71,7 +71,7 @@ Compile one of the programs, e.g. `v2.cpp` (which is gamma1_weighted code):
 
 You can name the ouput file anything you want ! Run this following code.
 ```bash
-g++ -std=c++17 -fopenmp apps/v2.cpp src/*.cpp -o filename
+g++ -std=c++17 -fopenmp apps/gamma1_weighted.cpp src/*.cpp -o filename
 ```
 
 
