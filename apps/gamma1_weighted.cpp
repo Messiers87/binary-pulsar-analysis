@@ -1,7 +1,8 @@
 // gamma1 weighted (equation 29 implementation)
-#include "../src/orbit.h"
-#include "../src/gamma.h"
-#include "../src/io.h"
+#include "orbit.h"
+#include "gamma.h"
+#include "io.h"
+#include "precision.h"
 
 #include <iostream>
 #include <fstream>
@@ -18,32 +19,31 @@ int main() {
         params["e"], 0.0L, params["omega"]
     };
 
-    long double T_obs = params["T"];
+    real T_obs = params["T"];
     int m = static_cast<int>(params["m"]);
-    long double Pp_s = params["Pspin"];
+    real Pp_s = params["Pspin"];
 
     std::cout << "Starting orbit-averaged gamma1 computation..." << std::endl;
 
-    long double sum_num = 0.0L;
-    long double sum_den = 0.0L;
-    const int f_steps = 3600; //0.10 degree stepsize
+    real sum_num = 0.0L;
+    real sum_den = 0.0L;
+	const int f_steps = 36; // 10 degree step-size
+    // const int f_steps = 360; // 1 degree step-size (use this for more accurate values)
 
-    #pragma omp parallel for reduction(+:sum_num, sum_den)
+    // #pragma omp parallel for reduction(+:sum_num, sum_den)
     for (int i = 0; i < f_steps; ++i) {
-        long double f0_deg = 360.0L * ((long double)i) / ((long double)f_steps); 
-        
-        long double gamma_f = gamma1(p, f0_deg, T_obs, m, Pp_s);
+        real f0_deg = 360.0L * ((real)i) / ((real)f_steps); 
 
-        long double w_num = powl(1.0L + p.e * cosl(deg2rad(f0_deg)), -2.0L);
-        long double w_denom = powl(1.0L + p.e * cosl(deg2rad(180.0L)), -2.0L);
-        long double w_f = w_num / w_denom;
+        
+        real gamma_f = gamma1(p, f0_deg, T_obs, m, Pp_s);
+        real w_f = compute_w(f0_deg, p.e);
 
         sum_num += gamma_f * w_f;
         sum_den += w_f;
     }
 
-    long double gamma_avg = sum_num / sum_den;
-    
+    real gamma_avg = sum_num / sum_den;
+     
     std::cout << "Computation finished." << std::endl;
     std::cout << std::fixed << std::setprecision(15);
     std::cout << "  Weighted gamma1 = " << gamma_avg << std::endl;

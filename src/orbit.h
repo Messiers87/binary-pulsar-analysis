@@ -1,24 +1,42 @@
-#pragma once
+#ifndef ORBIT_H
+#define ORBIT_H
+
+#include "precision.h"
 #include <cmath>
 
+// ------- Public Declarations of Physical constants -------
+extern const real G;
+extern const real MSUN;
+extern const real DAY;
+extern const real PI;
+extern const real C;
+
+// ------- Public Declarations of Angle helpers -------
+real deg2rad(real d);
+real rad2deg(real r);
+real norm2pi(real x);
+
+// ------- Public Declarations of Kepler solvers -------
+real solve_kepler_E(real M, real e);
+real E_to_true_f(real E, real e);
+
+// ------- Public Declaration of the OrbitParams Struct -------
 struct OrbitParams {
-    long double Mp_sun;
-    long double Mc_sun;
-    long double Po_day;
-    long double inc_deg;
-    long double e;
-    long double Tp_s;
-    long double varpi_deg;
+    real Mp_sun;
+    real Mc_sun;
+    real Po_day;
+    real inc_deg;
+    real e;
+    real Tp_s;
+    real varpi_deg;
 };
 
-long double deg2rad(long double d);
-long double rad2deg(long double r);
-long double norm2pi(long double x);
+// ------- Public Declarations of Physics Functions -------
+real projected_semi_major_axis(const OrbitParams& p);
+real r_l(const OrbitParams& p, real t);
+// real v_l(const OrbitParams& p, real t);
+// real a_l_of_f(const OrbitParams& p, real f);
 
-long double solve_kepler_E(long double M, long double e);
-long double E_to_true_f(long double E, long double e);
 
-long double projected_semi_major_axis(const OrbitParams& p);
-long double r_l(const OrbitParams& p, long double t);
-long double v_l(const OrbitParams& p, long double t);
-long double a_l_of_f(const OrbitParams& p, long double f);
+#endif // ORBIT_H
+

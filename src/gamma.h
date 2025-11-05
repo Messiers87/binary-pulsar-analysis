@@ -1,6 +1,7 @@
 #pragma once
 #include "orbit.h"
+#include "precision.h"
 
-long double gamma1(const OrbitParams& baseParams, long double f, long double T_obs, int m, long double Pp_seconds);
-long double compute_w(long double f0_deg, long double e);
+real gamma1(const OrbitParams& baseParams, real f, real T_obs, int m, real Pp_seconds);
+real compute_w(real f0_deg, real e);
 
