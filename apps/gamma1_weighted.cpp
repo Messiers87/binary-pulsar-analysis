@@ -27,12 +27,12 @@ int main() {
 
     real sum_num = 0.0L;
     real sum_den = 0.0L;
-	const int f_steps = 36; // 10 degree step-size
-    // const int f_steps = 360; // 1 degree step-size (use this for more accurate values)
+	const int f_steps = 37; // 10 degree step-size (0° to 360° inclusive)
+    // const int f_steps = 361; // 1 degree step-size (use this for more accurate values)
 
     // #pragma omp parallel for reduction(+:sum_num, sum_den)
     for (int i = 0; i < f_steps; ++i) {
-        real f0_deg = 360.0L * ((real)i) / ((real)f_steps); 
+        real f0_deg = 10.0L * ((real)i); // 0°, 10°, 20°, ..., 360°
 
         
         real gamma_f = gamma1(p, f0_deg, T_obs, m, Pp_s);
@@ -60,4 +60,3 @@ int main() {
 
     return 0;
 }
-
